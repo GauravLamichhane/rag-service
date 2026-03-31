@@ -49,10 +49,34 @@ def load_url(urls: list[str]):
     docs.extend(loader.load())
   return docs
 
+def ingest(urls: list[str] = []):
+  print("\n--Loading documents ---")
+  all_docs = []
+  all_docs.extend(load_pdfs())
+  all_docs.extend(load_markdown())
+  if urls:
+    all_docs.extend(load_url(urls))
+  if not all_docs:
+    print("No documents found. Add files to the docs/ folder or pass URLS.")
+    return
+  print(f"\n Splitting into chunks (size = {CHUNK_SIZE}, overlap = {CHUNK_OVERLAP})")
+  chunks = splitter.split_documents(all_docs)
+  print(f"Total chunks created: {len(chunks)}")
+
+  print("\n Embedding and storing in ChromaDB")
+
+  vectorstore = Chroma.from_documents(
+    documents=chunks,
+    embedding=embeddings,
+    persist_directory= CHROMA_DIR,
+  )
+
+  print(f"{len(chunks)} chunks stored in {CHROMA_DIR}")
+  return vectorstore
+
 
 if __name__ == "__main__":
-  docs = load_markdown()
-  print(f"Loaded {len(docs)} document(s).")
-  for i, doc in enumerate(docs, start=1):
-    print(f"\n--- Document {i} ---")
-    print(doc.page_content)
+  urls = [
+        "https://example.com/"
+  ]
+  ingest(urls=urls)
