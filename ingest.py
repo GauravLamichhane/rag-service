@@ -1,9 +1,12 @@
 import os
+os.environ.setdefault("USER_AGENT", "rag-service-ingest/1.0")
+
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 load_dotenv()
 
 #config
@@ -11,7 +14,10 @@ CHROMA_DIR = "chroma_db"
 CHUNK_SIZE = 700
 CHUNK_OVERLAP = 100
 
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
+
 splitter = RecursiveCharacterTextSplitter(
   chunk_size = CHUNK_SIZE,
   chunk_overlap = CHUNK_OVERLAP,
@@ -45,15 +51,19 @@ def load_url(urls: list[str]):
   docs = []
   for url in urls:
     print(f"Loading  URL: {url}")
-    loader = WebBaseLoader(url)
-    docs.extend(loader.load())
+    try:
+      loader = WebBaseLoader(url)
+      docs.extend(loader.load())
+    except Exception as exc:
+      print(f"Skipping URL due to load error: {url} ({exc})")
   return docs
 
-def ingest(urls: list[str] = []):
+def ingest(urls: list[str] | None = None):
   print("\n--Loading documents ---")
   all_docs = []
   all_docs.extend(load_pdfs())
   all_docs.extend(load_markdown())
+  urls = urls or []
   if urls:
     all_docs.extend(load_url(urls))
   if not all_docs:
@@ -64,12 +74,11 @@ def ingest(urls: list[str] = []):
   print(f"Total chunks created: {len(chunks)}")
 
   print("\n Embedding and storing in ChromaDB")
-
   vectorstore = Chroma.from_documents(
-    documents=chunks,
-    embedding=embeddings,
-    persist_directory= CHROMA_DIR,
-  )
+      documents=chunks,
+      embedding=embeddings,
+      persist_directory= CHROMA_DIR,
+    )
 
   print(f"{len(chunks)} chunks stored in {CHROMA_DIR}")
   return vectorstore
@@ -77,6 +86,6 @@ def ingest(urls: list[str] = []):
 
 if __name__ == "__main__":
   urls = [
-        "https://example.com/"
-  ]
+        "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+]
   ingest(urls=urls)
