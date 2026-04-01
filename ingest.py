@@ -4,7 +4,7 @@ os.environ.setdefault("USER_AGENT", "rag-service-ingest/1.0")
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
 load_dotenv()
@@ -58,13 +58,13 @@ def load_url(urls: list[str]):
       print(f"Skipping URL due to load error: {url} ({exc})")
   return docs
 
-def ingest(urls: list[str] | None = None):
+def ingest(use_urls = False, urls: list[str] | None = None):
   print("\n--Loading documents ---")
   all_docs = []
   all_docs.extend(load_pdfs())
   all_docs.extend(load_markdown())
   urls = urls or []
-  if urls:
+  if use_urls and urls:
     all_docs.extend(load_url(urls))
   if not all_docs:
     print("No documents found. Add files to the docs/ folder or pass URLS.")
@@ -85,7 +85,8 @@ def ingest(urls: list[str] | None = None):
 
 
 if __name__ == "__main__":
-  urls = [
-        "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
-]
-  ingest(urls=urls)
+#   urls = [
+#         "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+# ]
+#   ingest(urls=urls)
+  ingest(use_urls=False)
