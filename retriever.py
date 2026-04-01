@@ -5,7 +5,7 @@ CHROMA_DIR = "chroma_db"
 TOP_K = 4
 
 embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+  model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
 def get_retriever():
