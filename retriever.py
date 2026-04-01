@@ -15,7 +15,7 @@ def get_retriever():
   )
 
   return vectorstore.as_retriever(
-    search_type = "mmr",
+    search_type = "similarity",
     search_kwargs = {"k":TOP_K},
   )
 
