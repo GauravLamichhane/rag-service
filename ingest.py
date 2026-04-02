@@ -34,7 +34,10 @@ def load_pdfs(folder = "docs"):
       path = os.path.join(folder, filename)
       print(f"Loading PDF: {filename}")
       loader = PyPDFLoader(path)
-      docs.extend(loader.load())
+      pdf_docs = loader.load()
+      for doc in pdf_docs:
+        doc.metadata["page"] = doc.metadata.get("page", 0) + 1
+      docs.extend(pdf_docs)
   return docs
 
 def load_markdown(folder = "docs"):
