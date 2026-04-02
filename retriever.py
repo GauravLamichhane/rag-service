@@ -1,5 +1,8 @@
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
+from dotenv import load_dotenv
+
+load_dotenv()
 
 CHROMA_DIR = "chroma_db"
 TOP_K = 4
