@@ -5,7 +5,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_cohere import ChatCohere
 from hybrid_retriever import hybrid_retrieve
 
-load_dotenv
+load_dotenv()
 
 with open("prompts.yaml","r") as f:
   config = yaml.safe_load(f)
@@ -37,7 +37,8 @@ def check_relevance(chunks) -> bool:
     url_density = urls_count / max(word_count, 1)
     if url_density < 0.05: #less than 5% URLs = real content chunk
       return True
-    return False #all chunk looks like bibliography
+
+  return False #all chunks look like bibliography
 
 
 def ask(question: str) -> dict:
@@ -76,6 +77,7 @@ def ask(question: str) -> dict:
   return {
     "answer": response.content,
     "sources": sources,
+    "contexts": [chunk.page_content for chunk in chunks],
   }
 
 

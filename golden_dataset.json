@@ -1,0 +1,74 @@
+[
+  {
+    "question": "What are the three frontend frameworks discussed in the paper?",
+    "ground_truth": "The three frontend frameworks discussed are React.js, Angular, and Vue.js."
+  },
+  {
+    "question": "What is the main advantage of Node.js?",
+    "ground_truth": "Node.js uses asynchronous non-blocking architecture which ensures high performance in concurrent operations."
+  },
+  {
+    "question": "Which frameworks are recommended for banking and critical applications?",
+    "ground_truth": "Django, Spring Boot, and ASP.NET are recommended for banking and critical applications due to their robust security features."
+  },
+  {
+    "question": "What is the difference between Web 1.0 and Web 2.0?",
+    "ground_truth": "Web 1.0 consisted of static websites where users could only consume content. Web 2.0 introduced dynamic and interactive applications powered by JavaScript and AJAX."
+  },
+  {
+    "question": "What security attack does CSRF token prevent?",
+    "ground_truth": "CSRF tokens prevent Cross-Site Request Forgery attacks which trick users into executing unauthorized actions on authenticated sites."
+  },
+  {
+    "question": "What is the main disadvantage of Angular?",
+    "ground_truth": "Angular has higher complexity compared to React and Vue.js resulting in a steeper learning curve and larger bundle sizes."
+  },
+  {
+    "question": "Which framework is best for startups building MVPs?",
+    "ground_truth": "Ruby on Rails is best for startups and MVPs due to its rapid development cycle and convention over configuration approach."
+  },
+  {
+    "question": "What technologies enable Progressive Web Apps?",
+    "ground_truth": "Progressive Web Apps use Service Workers and IndexedDB to enable caching and background synchronization for offline functionality."
+  },
+  {
+    "question": "What are Single Page Applications (SPAs)?",
+    "ground_truth": "Single Page Applications are web applications that dynamically update content without requiring full page reloads, improving responsiveness and user experience."
+  },
+  {
+    "question": "What is the role of the Virtual DOM in React.js?",
+    "ground_truth": "The Virtual DOM improves performance by efficiently updating and rendering only the changed components instead of reloading the entire page."
+  },
+  {
+    "question": "What type of applications is Angular best suited for?",
+    "ground_truth": "Angular is best suited for large-scale enterprise applications requiring a structured and scalable architecture."
+  },
+  {
+    "question": "What is the main benefit of Vue.js?",
+    "ground_truth": "Vue.js offers simplicity and flexibility with a lightweight structure and an easy learning curve."
+  },
+  {
+    "question": "What is the purpose of RESTful APIs?",
+    "ground_truth": "RESTful APIs enable communication between client and server using standard HTTP methods."
+  },
+  {
+    "question": "What is GraphQL and how does it differ from REST?",
+    "ground_truth": "GraphQL is an API query language that allows clients to request specific data, reducing over-fetching compared to REST."
+  },
+  {
+    "question": "What is the main advantage of Django?",
+    "ground_truth": "Django provides built-in security features and a structured framework that enables rapid and secure development."
+  },
+  {
+    "question": "What is the key characteristic of Flask?",
+    "ground_truth": "Flask is a lightweight and flexible microframework that allows developers to build applications with minimal built-in features."
+  },
+  {
+    "question": "What technologies are used for containerization and orchestration?",
+    "ground_truth": "Docker is used for containerization and Kubernetes is used for orchestration of containerized applications."
+  },
+  {
+    "question": "What is Cross-Site Scripting (XSS)?",
+    "ground_truth": "Cross-Site Scripting is a security vulnerability where attackers inject malicious scripts into web pages viewed by other users."
+  }
+]
